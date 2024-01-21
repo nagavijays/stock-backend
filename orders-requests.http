@@ -1,0 +1,67 @@
+###
+
+POST http://localhost:8080/api/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "stockId": "INFY",
+    "userId": "",
+    "orderType": "BUY",
+    "quantity": 50
+}   
+
+###
+
+POST http://localhost:8080/api/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "stockId": "INFY",
+    "userId": "",
+    "orderType": "BUY",
+    "quantity": 50
+}   
+###
+
+POST http://localhost:8080/api/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "stockId": "INFY",
+    "userId": "jack",
+    "orderType": "BUY",
+    "quantity": 50
+}   
+###
+
+POST http://localhost:8080/api/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "stockId": "TCS",
+    "userId": "john",
+    "orderType": "BUY",
+    "quantity": 25
+}   
+###
+
+POST http://localhost:8080/api/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "stockId": "HDFCBAN",
+    "userId": "russell",
+    "orderType": "SELL",
+    "quantity": 50
+}   
+###
+
+POST http://localhost:8080/api/order HTTP/1.1
+Content-Type: application/json
+
+{
+    "stockId": "RIL",
+    "userId": "robin",
+    "orderType": "BUY",
+    "quantity": 50
+}   
