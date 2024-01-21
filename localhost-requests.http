@@ -1,0 +1,16 @@
+
+POST http://localhost:8080/api/stock/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "INFY",
+    "quantity": 20
+}   
+
+###
+
+GET http://localhost:8080/api/stock/all HTTP/1.1
+
+###
+
+GET http://localhost:8080/api/stock/welcome HTTP/1.1
