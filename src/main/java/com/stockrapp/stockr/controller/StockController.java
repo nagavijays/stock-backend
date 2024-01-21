@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stockrapp.stockr.entity.Stock;
 import com.stockrapp.stockr.service.StockService;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
     
-
 
 @RestController
 @RequestMapping("/api/stock")
@@ -24,12 +22,12 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    @PostMapping(path = "/create")
+    @PostMapping
     public ResponseEntity<Stock> create(@RequestBody Stock stock) {
         System.out.println("Creae...");
         try {
             Stock saved = stockService.save(stock);
-            System.out.println("Created...."+ saved.getName());
+            System.out.println("Created...."+ saved.getCompanyName());
             System.out.println("Created...."+ saved.getId());
             return new ResponseEntity<>(saved, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -38,13 +36,7 @@ public class StockController {
         }
     }
 
-    @GetMapping("/welcome")
-    public String welcome(@RequestParam String param) {
-        return "Welcome Message";
-    }
-    
-
-    @GetMapping(path = "/all")
+    @GetMapping
     public ResponseEntity<List<Stock>> getAll() {
         System.out.println("Something......");
         try {

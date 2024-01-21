@@ -5,16 +5,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-@Document(collection = "orders")
-public class Order {
+@Document(collection = "users")
+@ToString
+public class User {
 
-    @Id
-    private String id;
-    private String stockId;
-    private String userId;
-    private String orderType; // Buy or sell
-    private int quantity;
+  @Id
+  private String id;
+  private String username;
+
+  public User(String username) {
+    this.username = username;
+  }
 }
