@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "stockId": "INFY",
     "userId": "",
-    "orderType": "BUY",
+    "orderType": "SELL",
     "quantity": 50
 }   
 
