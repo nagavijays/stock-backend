@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,36 +21,25 @@ public class StockMatchingService {
 
   @Autowired
   TransactionRepository transactionRepository;
-  
+
   @Autowired
   OrderRepository orderRepository;
 
   private ExecutorService executorService;
 
-
-  // Not an ideal datastructure.. For time being ok.
-  // Maybe it could be a event queue.. or cache or from db.
-  
-  // private List<TransactionHistory> transactions;
-
-  // public StockMatchingService() {
-  //   buyOrders = new ArrayList<>();
-  //   sellOrders = new ArrayList<>();
-  //   transactions = new ArrayList<>();
-  // }
+  private static final Logger log = LoggerFactory.getLogger(StockMatchingService.class);
 
   private void runMatchingEngine() {
     while (true) {
-        try {
-          evaluateTrades();
-          Thread.sleep(2000);
-          System.out.println("---------------");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            break;
-        }
+      try {
+        evaluateTrades();
+        Thread.sleep(2000);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        break;
+      }
     }
-}
+  }
 
   private void evaluateTrades() {
 
@@ -59,18 +50,27 @@ public class StockMatchingService {
       for (Order sellOrder : sellOrders) {
         if (buyOrder.getStockId().equals(sellOrder.getStockId()) &&
             buyOrder.getPrice() >= sellOrder.getPrice()) {
-          System.out.println("Found Match....");
+
+          log.info("Found matching order for {}, qty {}", buyOrder.getStockId(), buyOrder.getQuantity());
           int tradedQuantity = saveExecutedTransaction(buyOrder, sellOrder);
 
           // Reduce the quantity for the matched orders for buy and sell.
           // An order can have multiple transactions (i.e trades)
-          buyOrder.setQuantity(buyOrder.getQuantity() - tradedQuantity);
-          sellOrder.setQuantity(sellOrder.getQuantity() - tradedQuantity);
-          orderRepository.save(buyOrder);
-          orderRepository.save(sellOrder);
+          adjustOrderStatusAndQuantity(buyOrder, sellOrder, tradedQuantity);
         }
       }
     }
+  }
+
+  private void adjustOrderStatusAndQuantity(Order buyOrder, Order sellOrder, int tradedQuantity) {
+    buyOrder.setQuantity(buyOrder.getQuantity() - tradedQuantity);
+    sellOrder.setQuantity(sellOrder.getQuantity() - tradedQuantity);
+    if (buyOrder.getQuantity() == 0)
+      buyOrder.setStatus("CLOSED");
+    if (sellOrder.getQuantity() == 0)
+      sellOrder.setStatus("CLOSED");
+    orderRepository.save(buyOrder);
+    orderRepository.save(sellOrder);
   }
 
   private int saveExecutedTransaction(Order buyOrder, Order sellOrder) {
@@ -88,8 +88,4 @@ public class StockMatchingService {
     executorService = Executors.newSingleThreadExecutor();
     executorService.execute(this::runMatchingEngine);
   }
-
-  // public List<TransactionHistory> getTransactions() {
-  //   return transactions;
-  // }
 }
