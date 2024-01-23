@@ -12,9 +12,13 @@ import com.stockrapp.stockr.repository.OrderRepository;
 public class OrderService {
 
     @Autowired
+    StockMatchingService stockMatchingService;
+
+    @Autowired
     OrderRepository orderRepository;
 
     public Order save(Order order) {
+        order.setStatus("OPEN");
         return orderRepository.save(order);
     }
 

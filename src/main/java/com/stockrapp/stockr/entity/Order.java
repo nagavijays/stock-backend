@@ -15,9 +15,10 @@ public class Order {
     private String id;
     private String stockId;
     private String userId;
-    private String orderType; // Buy or sell
+    private String orderType; // Buy or sell enum?
     private int quantity;
     private double price;
+    private String status; // open / closed enum
     
     public Order(String id, String stockId, String userId, String orderType, int quantity, double price) {
         this.id = id;

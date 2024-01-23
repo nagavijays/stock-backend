@@ -5,9 +5,10 @@ Content-Type: application/json
 
 {
     "stockId": "INFY",
-    "userId": "",
+    "userId": "russell",
     "orderType": "SELL",
-    "quantity": 50
+    "quantity": 50,
+    "price": 1000
 }   
 
 ###
@@ -17,9 +18,10 @@ Content-Type: application/json
 
 {
     "stockId": "INFY",
-    "userId": "",
+    "userId": "robin",
     "orderType": "BUY",
-    "quantity": 50
+    "quantity": 25,
+    "price" : 950
 }   
 ###
 
@@ -30,7 +32,8 @@ Content-Type: application/json
     "stockId": "INFY",
     "userId": "jack",
     "orderType": "BUY",
-    "quantity": 50
+    "quantity": 50,
+    "price" : 1050
 }   
 ###
 

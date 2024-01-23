@@ -17,7 +17,7 @@ public class ScheduledTask {
     @Autowired
     TransactionRepository transactionRepository;
     
-    @Scheduled(fixedRate = 2000)
+    // @Scheduled(fixedRate = 2000)
     public void reportCurrentTime() {
         List<TransactionHistory> allTrades = transactionRepository.findAll();
         System.out.println("#######################");
