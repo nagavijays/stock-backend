@@ -11,5 +11,8 @@ import com.stockrapp.stockr.entity.Order;
 public interface OrderRepository extends MongoRepository<Order, String> {
 
     List<Order> findByStatusAndOrderType(String status, String orderType);
+    
+    List<Order> findByUserId(String userId);
+
 
 }
