@@ -11,3 +11,7 @@ Content-Type: application/json
 
 GET http://localhost:8080/api/stock HTTP/1.1
 
+
+
+###
+GET http://localhost:8080/api/transaction/65af4a824912683788643697/BUY
