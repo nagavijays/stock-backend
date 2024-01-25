@@ -24,11 +24,8 @@ public class StockController {
 
     @PostMapping
     public ResponseEntity<Stock> create(@RequestBody Stock stock) {
-        System.out.println("Creae...");
         try {
             Stock saved = stockService.save(stock);
-            System.out.println("Created...."+ saved.getCompanyName());
-            System.out.println("Created...."+ saved.getId());
             return new ResponseEntity<>(saved, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +35,6 @@ public class StockController {
 
     @GetMapping
     public ResponseEntity<List<Stock>> getAll() {
-        System.out.println("Something......");
         try {
             List<Stock> allStocks = stockService.getAll();
 

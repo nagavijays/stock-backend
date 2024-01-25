@@ -23,7 +23,6 @@ public class TransactionService {
     }
 
     public List<TransactionHistory> getByOrderId(String orderId, String orderType) {
-        System.out.println("OrderType;:: " + orderType);
         List<TransactionHistory> trasactions = transactionRepository.findByBuyerOrderId(orderId);
 
         return ("BUY".equals(orderType)) ? transactionRepository.findByBuyerOrderId(orderId)
