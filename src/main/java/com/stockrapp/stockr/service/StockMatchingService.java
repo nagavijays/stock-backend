@@ -30,9 +30,16 @@ public class StockMatchingService {
   private static final Logger log = LoggerFactory.getLogger(StockMatchingService.class);
 
   private void runMatchingEngine() {
+    boolean currentExecution = true;
+    boolean previousExecution = false;
+
     while (true) {
       try {
-        evaluateTrades();
+        currentExecution = previousExecution;
+        if(currentExecution)
+          currentExecution = evaluateTrades();
+          evaluateTrades():
+
         Thread.sleep(2000);
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
@@ -41,7 +48,7 @@ public class StockMatchingService {
     }
   }
 
-  private void evaluateTrades() {
+  private boolean evaluateTrades() {
 
     List<Order> buyOrders = orderRepository.findByStatusAndOrderType("OPEN", "BUY");
     List<Order> sellOrders = orderRepository.findByStatusAndOrderType("OPEN", "SELL");
@@ -60,6 +67,8 @@ public class StockMatchingService {
         }
       }
     }
+    return true;
+
   }
 
   private void adjustOrderStatusAndQuantity(Order buyOrder, Order sellOrder, int tradedQuantity) {

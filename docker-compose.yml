@@ -14,3 +14,7 @@ services:
       - db:/data/db
 volumes:
   db:
+
+
+  nginx
+  
